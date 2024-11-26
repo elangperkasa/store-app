@@ -1,0 +1,30 @@
+<div class="container mt-2">
+  <h2 class="pb-3">Shopping Cart</h2>  
+  <button class="btn btn-primary " (click)="goToProductsPage()">Add Another Products</button>
+  &nbsp;&nbsp;<button class="btn btn-success" (click)="goToCheckout()">Proceed to Checkout</button>
+  <div *ngIf="cartItems.length > 0; else noItems">
+    <div class="row pt-3">
+      <div class="col-lg-2 col-md-4 col-6 mb-4" *ngFor="let item of cartItems">
+        <div class="card hover-hand">
+          <div class="ratio ratio-1x1">
+            <img [src]="item.image" class="card-img-top" alt="{{ item.title }}" />
+          </div>
+          <div class="card-body">
+            
+            {{ item.title > 20 ? (item.title | slice:0:20) + '...' : item.title }}
+            
+            <p class="card-text"><strong>${{ item.price }}</strong></p>
+            <p class="card-text">Quantity: {{ item.quantity }}</p>
+            <button class="btn btn-danger" (click)="deleteProductFromCart(item.cartId, item.id)">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noItems>
+    <p class="pt-3">Your cart is empty.</p>
+  </ng-template>
+</div>

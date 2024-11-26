@@ -1,0 +1,34 @@
+<div class="container mt-1">
+    <h2 class="pb-3">Products</h2>
+    <button class="btn btn-primary " (click)="goToCartPage()">Your Shopping Cart</button>
+    &nbsp;&nbsp;<button class="btn btn-success" (click)="goToCheckout()">Proceed to Checkout</button>
+    <div class="mb-4 mt-4">
+      <label for="categorySelect" class="form-label">Filter by Category</label>
+      <select id="categorySelect" class="form-select" [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
+        <option value="" selected>All Categories</option>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+    </div>
+
+    <div class="row  pt-3">
+      <div class="col-lg-2 col-md-4 col-6 mb-4" *ngFor="let product of products">
+        <div class="card hover-hand" (click)="viewProductDetail(product.id)">
+          <div class="ratio ratio-1x1">
+            <img [src]="product.image" class="card-img-top" alt="{{ product.title }}" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ product.title.length > 20 ? (product.title | slice:0:20) + '...' : product.title }}
+            </h5>            
+           
+            <p class="card-text">
+              {{ product.description.length > 100 ? (product.description | slice:0:100) + '...' : product.description }}
+              <a *ngIf="product.description.length > 200" href="javascript:void(0)" (click)="toggleDescription(product.id)">Read More</a>
+            </p>
+            <p class="card-text"><strong>${{ product.price }}</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
